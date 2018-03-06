@@ -1,0 +1,10 @@
+node_modules
+*.log
+logs
+*.thumbnail
+.idea
+dist
+npm-debug.log
+npm-debug.log*
+mock
+.DS_Store
