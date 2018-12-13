@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>computed And watch</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="app">
+    <h2>computed案例</h2>
+    <div class="computed">
+        <p>原数据{{message}}</p>
+        <p>computed数据{{reversedMessage}}</p>
+        <p>时间：{{now}}</p>
+    </div>
+    <h2>通过methods 来改变值</h2>
+    <div class="methods">
+        <p>原数据{{messageOne}}</p>
+        <p>通过methods来改变数据的值{{ reversedMessageOne() }}d</p>
+    </div>
+    <h3>watch案例</h3>
+    <div class="watch">
+        <p>{{fullName}}</p>
+    </div>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data:{
+            message: 'hello world',
+            messageOne: 'hello world',
+            
+            firstName: 'sunny',
+            lastName: 'fan',
+            // fullName: '',
+        },
+        methods: {
+            reversedMessageOne: function(){
+                return this.messageOne.split('').reverse().join('');
+            }
+        },
+        computed: {
+            reversedMessage: function(){
+                return this.message.split('').reverse().join('')
+            },
+            // fullName: function(){
+            //     console.log('计算了一次');
+            //     return this.firstName + ' ' + this.lastName
+            // },
+            fullName: {
+                get: function(){
+                    return this.firstName + ' ' + this.lastName
+                },
+                set: function(newValue){
+                    var names = newValue.split(' ')
+                    console.log(names);
+                    this.firstName = names[0]
+                    this.lastName = names[names.length - 1]
+                },
+            },
+            now: function(){
+                return Date.now();
+            },
+        },
+        // watch: {
+        //     firstName: function(val){
+        //         console.log('计算了一次')
+        //         this.fullName = val + ' ' + this.lastName;
+        //     },
+        //     lastName: function(val){
+        //         console.log('计算了一次')
+        //         this.fullName = this.firstName + ' ' + val;
+        //     }
+        // }
+
+    })
+</script>
+
+</body>
+</html>
